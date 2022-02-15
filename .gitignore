@@ -1,2 +1,9 @@
 /venv/
 .idea
+/MLAlgos/test.py
+*.pyc
+*.pyo
+__pycache__/
+*.py[cod]
+/MLAlgos/supervised_learning/__pycache__
+/MLAlgos/examples/__pycache__
