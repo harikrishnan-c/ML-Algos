@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class LinearRegression(object):
+class LinearRegression:
     def __init__(self):
         self.__W = None
         self.coef_ = None
