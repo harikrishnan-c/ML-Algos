@@ -17,6 +17,7 @@ class DistanceMetric:
         elif metric == 'chebyshev':
             return _ChebyshevDistance()
         else:
+            # TODO: Create a Custom Exception
             raise Exception('Metric not Found!!')
 
 
@@ -26,12 +27,16 @@ class _SpatialDistance(ABC):
         pass
 
 
+
 class _MinkowskiDistance(_SpatialDistance):
     def __init__(self, p):
         self.p = p
 
     def get_distance(self, x, y):
-        return np.power(np.sum(np.power(np.abs(x - y), self.p),axis=1), 1 / self.p)
+        dist = []
+        for x_row in x:
+            dist.append(np.power(np.sum(np.power(np.abs(x_row - y), self.p), axis=1), 1 / self.p))
+        return np.array(dist)
 
 
 class _EuclideanDistance(_MinkowskiDistance):
@@ -47,7 +52,10 @@ class _ManhattanDistance(_SpatialDistance):
         pass
 
     def get_distance(self, x, y):
-        return np.sum(np.abs(x - y), axis=1)
+        dist = []
+        for x_row in x:
+            dist.append(np.sum(np.abs(x_row - y), axis=1))
+        return np.array(dist)
 
 
 class _ChebyshevDistance(_SpatialDistance):
@@ -55,4 +63,7 @@ class _ChebyshevDistance(_SpatialDistance):
         pass
 
     def get_distance(self, x, y):
-        return np.max(np.abs(x - y), axis=1)
+        dist = []
+        for x_row in x:
+            dist.append(np.max(np.abs(x_row - y), axis=1))
+        return np.array(dist)
